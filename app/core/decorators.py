@@ -2,6 +2,7 @@ from functools import wraps
 from fastapi import HTTPException
 from app.validator.subscription_client import SubscriptionClient
 from app.processors.registry import preprocessors, postprocessors
+from app.schemas.service_schema import EnrichedPayload
 
 
 # def apply_preprocessors(func):
@@ -16,7 +17,7 @@ from app.processors.registry import preprocessors, postprocessors
 #         return await func(*args, **kwargs)
 #     return wrapper
 
-def apply_preprocessors(func):
+def apply_preprocessors(func):    
     @wraps(func)                                  ##this is modified one
     async def wrapper(*args, **kwargs):
         payload = kwargs.get("payload")
@@ -25,8 +26,8 @@ def apply_preprocessors(func):
         for pre in preprocessors:
             print(f"Applying preprocessor: {pre.__name__}")
             enriched = pre(enriched)
-        # replace kwargs["payload"] with enriched version
-        kwargs["payload"] = type(payload)(**enriched) 
+        print("Enriched payload:", enriched)
+        kwargs["payload"] = EnrichedPayload(**enriched) 
         print("payload after applying preprocessors:", kwargs["payload"].dict())
         return await func(*args, **kwargs)
     return wrapper

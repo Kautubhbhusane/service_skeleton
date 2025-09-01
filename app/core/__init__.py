@@ -1,6 +1,4 @@
 # Core package
-
-
 from .config import SUBSCRIPTION_API_URL
 from .decorators import (
     validate_subscription,
