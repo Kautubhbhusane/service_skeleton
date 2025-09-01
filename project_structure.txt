@@ -1,0 +1,51 @@
+service-skeleton/(fastAPI)
+│
+├── app/
+│   ├── __init__.py
+│   ├── main.py                     # entry point
+│   │
+│   ├── api/                        # All API endpoints
+│   │   ├── __init__.py
+│   │   ├── routes.py               # API route definitions
+│   │
+│   ├── core/                       # Core configs & utilities
+│   │   ├── __init__.py
+│   │   ├── config.py               # Global config/env vars
+│   │   ├── decorators.py           # Decorators (auto subscription check)
+│   │
+│   ├── schemas/                    # Request/Response schemas
+│   │   ├── __init__.py
+│   │   ├── service_schema.py       # Developer defines service-specific schemas
+│   │
+│   ├── models/                     # Domain models (if persistence needed)
+│   │   ├── __init__.py
+│   │   ├── service_model.py
+│   │
+│   ├── builders/                   # Builders for req/resp
+│   │   ├── __init__.py
+│   │   ├── request_builder.py
+│   │   ├── response_builder.py
+│   │
+│   ├── processors/                 
+│   │   ├── __init__.py
+│   │   ├── preprocessor.py         # Payload enrichment before validation if required
+│   │   ├── postprocessor.py        # Response transformation if required
+│   │
+│   ├── services/                   # Developer plugs in business logic here
+│   │   ├── __init__.py
+│   │   ├── service_handler.py      # Place to write custom business logic
+│   │
+│   ├── validator/                  # Wrapper integration
+│   │   ├── __init__.py
+│   │   ├── subscription_client.py  # Calls subscription validator wrapper
+│   │
+│   ├── tests/                      # Static & unit tests
+│   │   ├── __init__.py
+│   │   ├── test_static.py
+│   │   ├── test_service.py
+│
+├── pyproject.toml                  # project dependencies (or requirements.txt)
+├── README.md                       # Full developer documentation
+├── .flake8                         # Static checker config
+├── mypy.ini                        # Type checking config
+└── .pylintrc                       # Linting rules
