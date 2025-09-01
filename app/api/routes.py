@@ -15,10 +15,12 @@ ROUTE_PREFIX = "/request-service"
 
 
 @router.post("/doAction")
-@validate_subscription    
-@apply_preprocessors                            
-async def do_action(payload: ServiceNameRequest):
-    return {"msg": "Action performed successfully"}               # Mock response for testing
+@apply_preprocessors 
+@validate_subscription         
+def do_action(payload: ServiceNameRequest):
+    print("starting do_action")
+    return process_service(payload)   # original with payload
+    # return {"msg": "Action performed successfully"}               # Mock response for testing
 
          
 # More routes can be added similarly as per service needs

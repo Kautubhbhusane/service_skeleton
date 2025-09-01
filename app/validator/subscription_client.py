@@ -10,8 +10,9 @@ class SubscriptionClient:
     #         resp.raise_for_status()
     #         return resp.json()
     #         return {"is_valid": True}      # og version with payload
-    
-    async def validate(payload):
+
+    @staticmethod
+    def validate(payload):
         # async with httpx.AsyncClient() as client:
         #     resp = await client.post(SubscriptionClient.BASE_URL, json=payload)
         #     resp.raise_for_status()

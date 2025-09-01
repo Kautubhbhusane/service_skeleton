@@ -21,10 +21,13 @@ def apply_preprocessors(func):
     async def wrapper(*args, **kwargs):
         payload = kwargs.get("payload")
         enriched = payload.dict()
+        print("payload before applying preprocessors:", enriched)
         for pre in preprocessors:
+            print(f"Applying preprocessor: {pre.__name__}")
             enriched = pre(enriched)
         # replace kwargs["payload"] with enriched version
-        kwargs["payload"] = type(payload)(**enriched)  
+        kwargs["payload"] = type(payload)(**enriched) 
+        print("payload after applying preprocessors:", kwargs["payload"].dict())
         return await func(*args, **kwargs)
     return wrapper
 
@@ -42,7 +45,7 @@ def validate_subscription(func):
     @wraps(func)
     async def wrapper(*args, **kwargs):             ##this is modified one without payload for testing
         payload = kwargs.get("payload")
-        validation = await SubscriptionClient.validate(payload)
+        validation = SubscriptionClient.validate(payload)
         if not validation.get("is_valid"):
             raise HTTPException(status_code=403, detail="Subscription Invalid")
         return await func(*args, **kwargs)
