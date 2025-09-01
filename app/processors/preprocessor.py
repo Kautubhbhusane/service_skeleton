@@ -4,8 +4,9 @@ from app.processors.registry import register_preprocessor
 def enrich_payload(payload):
     # Example: add service name
     # payload["service_name"] = "document_generation"
-    payload["service_name"] = "example_service"
-    print("Preprocessor: enrich_payload executed ->", payload)
+    # payload["service_name"] = "example_service"
+    # print("Preprocessor: enrich_payload executed ->", payload)
+    print("Preprocessor 1: enrich_payload executed")
     return payload
 
 

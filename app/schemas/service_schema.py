@@ -7,3 +7,8 @@ class ServiceNameRequest(BaseModel):
 class ServiceNameResponse(BaseModel):
     status: str
     data: dict
+
+class testSchema(BaseModel):
+    user_id: int
+    org_id: int
+    service_id: int

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.schemas.service_schema import ServiceNameRequest, ServiceNameResponse
+from app.schemas.service_schema import ServiceNameRequest, ServiceNameResponse, testSchema
 from app.core.decorators import validate_subscription, apply_preprocessors #, apply_postprocessors
 from app.services.service_handler import process_service
 router = APIRouter()
@@ -13,11 +13,10 @@ ROUTE_PREFIX = "/request-service"
 # async def do_action(payload):
 #     return await process_service(payload)                       # original with payload           
 
-
 @router.post("/doAction")
 @apply_preprocessors 
 @validate_subscription         
-def do_action(payload: ServiceNameRequest):
+def do_action(payload: testSchema):
     print("starting do_action")
     return process_service(payload)   # original with payload
     # return {"msg": "Action performed successfully"}               # Mock response for testing
