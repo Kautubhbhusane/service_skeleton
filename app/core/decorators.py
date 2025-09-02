@@ -48,12 +48,12 @@ def validate_subscription(func):
         payload = kwargs.get("payload")
         validation = SubscriptionClient.validate(payload)
         if validation.get("has_access", True):
-            # raise HTTPException(
-            #     status_code=validation.get("status", 403),
-            #     detail=validation.get("message", "Subscription Invalid")
-            # )
             return await func(*args, **kwargs)
-        else: return validation["message"]
+        else: 
+            raise HTTPException(
+                status_code=validation.get("status", 403),
+                detail=validation.get("message", "Subscription Invalid")
+            )
     return wrapper
 
 
