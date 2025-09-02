@@ -7,11 +7,10 @@ router = APIRouter()
 ROUTE_PREFIX = "/request-service"         
 
 @router.post("/AccessService")
-@apply_preprocessors                           # runs all registered preprocessors.
-@validate_subscription                         # validate before main logic runs.
+@validate_subscription                         # checks subscription validity
+@apply_preprocessors                           # runs all registered preprocessors.    
 def AccessService(payload: testSchema):
     print("starting do_action")
-    return process_service(payload) 
-                  
+    return process_service(payload)
 
 

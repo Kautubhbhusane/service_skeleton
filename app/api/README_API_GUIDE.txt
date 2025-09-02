@@ -1,37 +1,57 @@
-API Development Guide – app/api/
+API Folder – Conventions & Rules
 
-This folder contains all the service APIs for the project.
-The __init__.py auto-discovers any APIRouter defined here, so you don’t need to register routes manually in main.py.
+This folder (app/api/) contains all API route modules for the project.
+Routers from these modules are automatically discovered and included into the main FastAPI app.
 
-Steps to Add a New API
+Rules for Writing APIs
 
-Create a new file in this folder (e.g., service_user.py).
-
-Import & create a router:
+Each API module must define:
 
 from fastapi import APIRouter
 
 router = APIRouter()
-
-(Optional) Define a prefix/suffix for grouping your routes:
-
-ROUTE_PREFIX = "/users"   # Will appear as /api/users/*
-# OR
-ROUTE_SUFFIX = "users"    # Loader will mount as /api/users/*
+ROUTE_PREFIX = "/<your-route-name>"
 
 
-Write your endpoints inside the file:
+router → instance of APIRouter().
+
+ROUTE_PREFIX → the base path under which this router will be mounted (must start with /).
+
+File naming conventions:
+
+File names must be snake_case (e.g., users.py, orders.py).
+
+Do not start file names with _ (private modules are ignored).
+
+Example API module:
+
+# app/api/users.py
+
+from fastapi import APIRouter
+
+router = APIRouter()
+ROUTE_PREFIX = "/users"
 
 @router.get("/")
-async def list_users():
-    return {"msg": "List of users"}
+def list_users():
+    return ["kaustubh", "pinu"]
 
 @router.post("/")
-async def create_user(user: dict):
-    return {"msg": "User created", "data": user}
+def create_user(user: dict):
+    return {"status": "created", "user": user}
 
 
-That’s it – The loader in __init__.py will auto-register your routes when the app starts.
+This will be available at:
 
-if you wish to create a folder inside api/ for better organization (e.g., v1/, admin/), you can do that too. 
-Just ensure each sub-folder has an __init__.py with an APIRouter instance. (copy it from this folder’s __init__.py).
+GET /api/users/
+
+POST /api/users/
+
+
+How routers are included:
+
+The __init__.py auto-imports all modules in this folder.
+
+Each router is automatically registered with its ROUTE_PREFIX.
+
+In main.py, we just include the parent router

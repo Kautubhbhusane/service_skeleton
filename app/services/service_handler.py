@@ -1,4 +1,3 @@
-from app.builders.response_builder import build_success_response
 from app.schemas.service_schema import EnrichedPayload
 
 async def process_service(payload: EnrichedPayload):

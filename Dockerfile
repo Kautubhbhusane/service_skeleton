@@ -4,7 +4,7 @@ FROM python:3.11-slim
 # Set working directory inside container
 WORKDIR /code
 
-# Copy requirements file first (for better caching)
+# Copy requirements file
 COPY requirements.txt .
 
 # Install Python dependencies
