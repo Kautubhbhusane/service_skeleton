@@ -14,7 +14,7 @@ class testSchema(BaseModel):
     org_id: int
     service_id: int 
 
-class EnrichedPayload(testSchema):          # inherits from testSchema
+class EnrichedPayload(BaseModel):          # inherits from testSchema
     class Config:                           # allows extra fields during enrichment
         extra = "allow"                     # so that preprocessors can add fields
 

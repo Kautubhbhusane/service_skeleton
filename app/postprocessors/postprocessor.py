@@ -1,12 +1,13 @@
 
 def add_status(response: dict) -> dict:
-    # response["status"] = "success"
+    # post-status = "success"
+    response["post-status"] = "success"
     return response
 
-def mask_sensitive(response: dict) -> dict:
-    # if "user_token" in response:
-    #     response["user_token"] = "***masked***"
-    return response
+# def mask_sensitive(response: dict) -> dict:
+#     # if "user_token" in response:
+#     #     response["user_token"] = "***masked***"
+#     return response
 
 # other postprocessors can be added similarly
 # e.g.

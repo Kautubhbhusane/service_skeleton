@@ -52,17 +52,20 @@ def validate_subscription(func):
             return await func(*args, **kwargs)
         else: 
             raise HTTPException(
-                status_code=validation.get("status", 403),
+                status_code=validation.get("status", 400),
                 detail=validation.get("message", "Subscription Invalid")
             )
     return wrapper
 
 
-# def apply_postprocessors(func):               ##this is og one with payload
-#     @wraps(func)
-#     async def wrapper(*args, **kwargs):
-#         response = await func(*args, **kwargs)
-#         for post in postprocessors:
-#             response = post(response)
-#         return response
-#     return wrapper
+def apply_postprocessors(func):            
+    @wraps(func)
+    async def wrapper(*args, **kwargs):
+        print("Applying postprocessors")
+        response = await func(*args, **kwargs)
+        for post in postprocessors:
+            print(f"Applying postprocessor: {post.__name__}")
+            response = post(response)
+            print("Response after postprocessor:", response)
+        return response
+    return wrapper
