@@ -1,13 +1,13 @@
-# Use Python 3.11 slim image as base
-FROM python:3.11-slim
+# light-weight python package
+FROM python:3.11-slim            
 
-# Set working directory inside container
+# working directory inside container
 WORKDIR /code
 
-# Copy requirements file
+# requirements file
 COPY requirements.txt .
 
-# Install Python dependencies
+# Python dependencies
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 # Copy the entire app directory
